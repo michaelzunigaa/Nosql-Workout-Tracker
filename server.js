@@ -17,10 +17,7 @@ app.use(express.json());
 
 
 
-// mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workout_trackerdb',
-//  { useNewUrlParser: true, useUnifiedTopology: true }).catch(error => handleError(error));
 
-//or
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workout_trackerdb',
  { useNewUrlParser: true, useUnifiedTopology: true });
  mongoose.connection
