@@ -29,7 +29,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workout_tracker
       console.warn('Error', error);
   });
 
-db.Workouts.create({name: "Get 'Er Done Workout Tracker"})
+db.Workouts.create({name: "Workout Tracker"})
   .then(dbWorkouts => {
     console.log('log from inside dbWorkouts.create '+dbWorkouts);
   })
@@ -38,9 +38,9 @@ db.Workouts.create({name: "Get 'Er Done Workout Tracker"})
   });
 
   app.get("/", (req,res) =>{
-    console.log('GET root route');
+ 
     res.sendFile(path.join(__dirname, "./public/index.html"));
-  })
+  });
   app.use(require("./controllers/exercises"));
   app.use(require("./controllers/workout"));
   

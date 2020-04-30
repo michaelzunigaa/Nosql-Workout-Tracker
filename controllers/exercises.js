@@ -3,7 +3,7 @@ const db = require("../models");
 
   router.post("/submit", ({body}, res) => {
     console.log(body);
-    db.Exercises.create(body)
+    db.Exercise.create(body)
       .then((newEx) => {
         console.log(newEx);
         return db.Workouts.findOneAndUpdate({}, { $push: { exercises: newEx._id } }, { new: true })
@@ -18,7 +18,7 @@ const db = require("../models");
   
   router.get("/exercises", (req, res) => {
     console.log('message from /exercise route');
-    db.Exercises.find({}).sort({_id: 'desc'})
+    db.Exercise.find({}).sort({_id: 'desc'})
       .then(dbExercises => {
         res.json(dbExercises);
       })
@@ -30,7 +30,7 @@ const db = require("../models");
   //get route to find by id
   router.get("/exercises/:id", (req, res) => {
    //   console.log('crb testing:  findById('+req.params.id+')');
-  db.Exercises.findById(req.params.id)
+  db.Exercise.findById(req.params.id)
   .then(result => {
    // console.log('crb testing:  result:'+result);
 
@@ -61,7 +61,7 @@ router.put("/exercises/:id", (req, res) => {
       });
   }
   // Find note and update it with the request body
-  db.Exercises.findByIdAndUpdate(req.params.id, {
+  db.Exercise.findByIdAndUpdate(req.params.id, {
       name: req.body.name || "Untitled exercise",
       description: req.body.description,
       difficulty: req.body.difficulty
@@ -72,7 +72,7 @@ router.put("/exercises/:id", (req, res) => {
               message: "exercise not found with id " + req.params.id
           });
       }
-      console.log('CHRIS SERVER is sending back: '+results);
+     
       res.send(results);
   }).catch(err => {
       if(err.kind === 'ObjectId') {
@@ -89,7 +89,7 @@ router.put("/exercises/:id", (req, res) => {
 // Delete a note with the specified noteId in the request
 router.delete("/exercises/:id", (req, res) => {
   let exerciseId = req.params.id;
-  db.Exercises.findByIdAndRemove(req.params.id)
+  db.Exercise.findByIdAndRemove(req.params.id)
   .then(results => {
       if(!results) {
           return res.status(404).send({

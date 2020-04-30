@@ -13,7 +13,7 @@ router.get("/all", (req, res) => {
   });
   
   router.get("/find/:id", (req, res) => {
-    db.Exercises.findOne(
+    db.Exercise.findOne(
       {
         _id: mongoose.ObjectId(req.params.id)
       },
